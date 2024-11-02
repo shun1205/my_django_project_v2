@@ -13,8 +13,25 @@
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
+            <!-- カテゴリ選択のセレクトボックス -->
+            <div>
+                <label for="category">カテゴリを選択してください:</label>
+                <select name="category" required>
+                    <option value="">-- カテゴリを選択 --</option>
+                    <option value="restaurant" {% if request.GET.category == 'restaurant' %}selected{% endif %}>飲食店</option>
+                    <option value="recipe" {% if request.GET.category == 'recipe' %}selected{% endif %}>レシピ</option>
+                    <option value="park" {% if request.GET.category == 'park' %}selected{% endif %}>公園</option>
+                    <option value="activity" {% if request.GET.category == 'activity' %}selected{% endif %}>アクティビティ</option>
+                    <option value="support" {% if request.GET.category == 'support' %}selected{% endif %}>地域の支援</option>
+                    <option value="education" {% if request.GET.category == 'education' %}selected{% endif %}>教育</option>
+                    <option value="school" {% if request.GET.category == 'school' %}selected{% endif %}>学校</option>
+                    <option value="experience" {% if request.GET.category == 'experience' %}selected{% endif %}>経験談</option>
+                </select>
+            </div>
+            <br>
             <button type="submit" class="btn btn-primary">投稿する</button>
         </form>
+        <br>
         <a href="{% url 'home' %}" class="btn btn-secondary">ホームに戻る</a>
     </div>
 </body>

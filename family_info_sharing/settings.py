@@ -66,6 +66,10 @@ WSGI_APPLICATION = 'family_info_sharing.wsgi.application'
 
 
 #.\venv\Scripts\Activate
+#python manage.py runserver
+#python manage.py makemigrations
+#python manage.py migrate
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',

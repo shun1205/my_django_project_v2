@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import FacilityForm, ReviewForm
+from .forms import FacilityForm, RecipeForm, ParkForm, ReviewForm  # 各カテゴリに応じたフォームをインポート
 from .models import Facility
 
 def home(request):
@@ -27,18 +27,34 @@ def home(request):
     return render(request, 'posts/home.html', {'facilities': facilities})
 
 def create_facility(request):
+    initial_data = {}
+    if 'category' in request.GET:
+        initial_data['category'] = request.GET['category']
+
     if request.method == 'POST':
-        form = FacilityForm(request.POST, request.FILES)
+        # カテゴリに応じたフォームを使うようにする
+        form_class = get_form_class(request.POST.get('category', ''))
+        form = form_class(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('home')  # 投稿後にホームページにリダイレクトします
     else:
-        form = FacilityForm()
+        form_class = get_form_class(initial_data.get('category', ''))
+        form = form_class(initial=initial_data)
     return render(request, 'posts/facility_form.html', {'form': form})
+
+def get_form_class(category):
+    # カテゴリに応じたフォームクラスを返す関数
+    if category == 'recipe':
+        return RecipeForm
+    elif category == 'park':
+        return ParkForm
+    else:
+        return FacilityForm
 
 def facility_detail(request, facility_id):
     facility = get_object_or_404(Facility, pk=facility_id)
-    reviews = facility.review_set.all()  # この施設に関連する全てのレビューを取得（facility.reviews ではなく facility.review_set）
+    reviews = facility.reviews.all()  # この施設に関連する全てのレビューを取得
     return render(request, 'posts/facility_detail.html', {'facility': facility, 'reviews': reviews})
 
 def create_review(request, facility_id):
