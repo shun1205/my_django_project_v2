@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>レビューを投稿する</title>
+</head>
+<body>
+    <div class="content">
+        <h1>{{ facility.facility_name }} へのレビューを投稿する</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">投稿する</button>
+        </form>
+        <a href="{% url 'facility_detail' facility.id %}" class="btn btn-secondary">施設詳細に戻る</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>施設情報の投稿</title>
+</head>
+<body>
+    <div class="content">
+        <h1>施設情報を投稿する</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">投稿する</button>
+        </form>
+        <a href="{% url 'home' %}" class="btn btn-secondary">ホームに戻る</a>
+    </div>
+</body>
+</html>

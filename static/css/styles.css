@@ -1,0 +1,125 @@
+/* 基本リセット */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100%;
+}
+
+/* 背景画像とヒーローセクションの設定 */
+.hero {
+    position: relative;
+    height: 70vh; /* 全画面の70%の高さ */
+    background: url("/static/images/duck.jpg") no-repeat center center/cover;
+    display: flex; /* 子要素を中央に配置するための設定 */
+    justify-content: center; /* 水平方向の中央配置 */
+    align-items: center; /* 垂直方向の中央配置 */
+}
+
+/* 検索バーのコンテナ設定 - 背景画像の上に配置 */
+.search-container {
+    display: flex;       
+    flex-direction: column; /* フォーム要素を縦に並べる設定 */
+    gap: 15px;              
+    background: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    max-width: 500px; /* フォームの幅を制限して、画面に収まりやすく */
+    width: 90%;       /* 小さい画面で適応する幅 */
+}
+
+/* 各段の設定 */
+.search-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center; /* 各入力を中央に揃える */
+}
+
+/* 検索入力フィールドのデザイン */
+.search-input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    width: 100%;  /* 幅を100%に設定して、親コンテナの幅に合わせる */
+    box-sizing: border-box; /* パディングやボーダーを含めた幅の計算 */
+}
+
+/* プレースホルダーテキストのスタイル設定 */
+.search-input::placeholder {
+    font-size: 0.8em; /* フォントサイズを少し小さくする */
+    color: #888; /* プレースホルダーテキストの色を少し淡くすることで見やすくする */
+}
+
+/* 子供の年齢フィールドのスタイル調整 */
+.child-age-select {
+    font-size: 0.8em; /* テキストサイズを小さく設定 */
+    padding: 8px; /* フィールドの内側の余白を調整（必要に応じて変更） */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%; /* 横幅を親コンテナに合わせる */
+    box-sizing: border-box;
+}
+
+
+/* 検索ボタンのデザイン */
+.search-button {
+    padding: 10px 20px;
+    background-color: #ff9800;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%; /* ボタンも親コンテナの幅に合わせて100%に */
+    box-sizing: border-box; /* パディングを含めて幅を計算するために設定 */
+}
+
+.search-button:hover {
+    background-color: #e68900;
+}
+
+/* コンテンツ部分のデザイン */
+.content {
+    text-align: center;
+    padding: 20px;
+}
+
+.post-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.post-link:hover {
+    background-color: #45a049;
+}
+
+/* スマホ用の調整 */
+@media (max-width: 768px) {
+    .search-container {
+        width: 95%;  /* スマホ画面ではフォーム全体の幅を少し広く */
+        padding: 15px; /* パディングを減らしてスマホでのバランスを改善 */
+    }
+    .search-input {
+        font-size: 0.9em;  /* スマホでのフォントサイズを少し小さく */
+    }
+    .search-input::placeholder {
+        font-size: 0.8em;  /* スマホ向けにプレースホルダーをさらに小さく */
+    }
+    .search-button {
+        font-size: 0.9em;  /* 検索ボタンの文字をスマホ向けに少し小さく */
+        padding: 8px 15px; /* スマホでのボタンサイズを少し減らす */
+        margin-top: 5px;  /* 検索ボタンの間隔を狭くする */
+    }
+    .search-row {
+        flex-direction: column;  /* スマホでは各行を縦に並べる */
+    }
+}

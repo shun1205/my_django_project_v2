@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>{{ facility.facility_name }} の詳細情報</title>
+</head>
+<body>
+    <div class="content">
+        <h1>{{ facility.facility_name }}</h1>
+        <p><strong>住所:</strong> {{ facility.address }}</p>
+        <p><strong>電話番号:</strong> {{ facility.phone_number }}</p>
+        <p><strong>カテゴリ:</strong> {{ facility.get_category_display }}</p>
+        <p><strong>設備情報:</strong></p>
+        <ul>
+            <li>おむつ替え台: {{ facility.diaper_changing|yesno:"あり,なし" }}</li>
+            <li>授乳室: {{ facility.nursing_room|yesno:"あり,なし" }}</li>
+            <li>キッズスペース: {{ facility.kids_space|yesno:"あり,なし" }}</li>
+            <li>バリアフリー: {{ facility.wheelchair_access|yesno:"あり,なし" }}</li>
+            <li>駐車場: {{ facility.parking|yesno:"あり,なし" }}</li>
+        </ul>
+        <p><strong>説明:</strong> {{ facility.description }}</p>
+
+        <h2>レビュー</h2>
+        {% if reviews %}
+            <ul>
+                {% for review in reviews %}
+                    <li>
+                        <strong>{{ review.user.username }}:</strong> {{ review.comment }} (評価: {{ review.rating }})
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>まだレビューはありません。</p>
+        {% endif %}
+
+        <a href="{% url 'create_review' facility.id %}" class="btn btn-primary">レビューを投稿する</a>
+        <a href="{% url 'home' %}" class="btn btn-secondary">ホームに戻る</a>
+    </div>
+</body>
+</html>

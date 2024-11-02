@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <title>カテゴリを選択</title>
+</head>
+<body>
+    <h1>カテゴリを選択してください</h1>
+    <ul>
+        <li><a href="{% url 'create_facility' %}?category=restaurant">レストラン</a></li>
+        <li><a href="{% url 'create_facility' %}?category=park">公園</a></li>
+        <li><a href="{% url 'create_facility' %}?category=shopping">ショッピング</a></li>
+        <li><a href="{% url 'create_facility' %}?category=others">その他</a></li>
+    </ul>
+</body>
+</html>
