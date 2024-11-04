@@ -5,7 +5,6 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -69,6 +68,11 @@ WSGI_APPLICATION = 'family_info_sharing.wsgi.application'
 #python manage.py runserver
 #python manage.py makemigrations
 #python manage.py migrate
+# プロジェクトに変更を加える
+#git add .
+#git commit -m "ここに変更内容を説明するメッセージ"
+#git push origin main
+
 
 DATABASES = {
     'default': {
@@ -117,12 +121,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # プロジェクトの静的ファイルを含むディレクトリ
+    BASE_DIR.joinpath('static'),  # プロジェクトの静的ファイルを含むディレクトリ
 ]
+
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # 静的ファイルを収集するためのディレクトリ
 # Default primary key field type

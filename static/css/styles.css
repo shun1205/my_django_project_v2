@@ -1,3 +1,5 @@
+/* styles.css */
+
 /* 基本リセット */
 body, html {
     margin: 0;
@@ -10,30 +12,64 @@ body, html {
 .hero {
     position: relative;
     height: 70vh; /* 全画面の70%の高さ */
-    background: url("/static/images/duck.jpg") no-repeat center center/cover;
-    display: flex; /* 子要素を中央に配置するための設定 */
-    justify-content: center; /* 水平方向の中央配置 */
-    align-items: center; /* 垂直方向の中央配置 */
+    background: url("{% static 'images/duck.jpg' %}") no-repeat center center/cover;
 }
 
-/* 検索バーのコンテナ設定 - 背景画像の上に配置 */
+/* Heroセクションにオーバーレイを追加 */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒 */
+    z-index: 1;
+}
+
+/* オーバーレイの上にテキストを配置するための設定 */
+.hero-content {
+    position: relative;
+    z-index: 2; /* オーバーレイより上に配置 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    line-height: 1.5; /* 行間を調整 */
+    color: white;
+}
+
+/* Heroタイトルと説明の追加スタイル */
+.hero-title {
+    margin: 0;
+    padding-top: 20px;
+    font-size: 2.5em;
+    line-height: 1.2; /* 行間を少し広げる */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    color: white;
+}
+
+.hero-description {
+    margin: 10px 0 20px 0;
+    font-size: 1.5em;
+    line-height: 1.4; /* 行間を調整 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    color: white;
+}
+
+/* 検索バーのコンテナ設定 */
 .search-container {
-    display: flex;       
-    flex-direction: column; /* フォーム要素を縦に並べる設定 */
-    gap: 15px;              
-    background: rgba(255, 255, 255, 0.7);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.5); /* 透明度を調整 */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    max-width: 500px; /* フォームの幅を制限して、画面に収まりやすく */
-    width: 90%;       /* 小さい画面で適応する幅 */
-}
-
-/* 各段の設定 */
-.search-row {
-    display: flex;
-    gap: 10px;
-    justify-content: center; /* 各入力を中央に揃える */
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto;
 }
 
 /* 検索入力フィールドのデザイン */
@@ -42,26 +78,13 @@ body, html {
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 1em;
-    width: 100%;  /* 幅を100%に設定して、親コンテナの幅に合わせる */
-    box-sizing: border-box; /* パディングやボーダーを含めた幅の計算 */
+    width: 100%;
+    transition: border-color 0.3s ease;
 }
 
-/* プレースホルダーテキストのスタイル設定 */
-.search-input::placeholder {
-    font-size: 0.8em; /* フォントサイズを少し小さくする */
-    color: #888; /* プレースホルダーテキストの色を少し淡くすることで見やすくする */
+.search-input:focus {
+    border-color: #ff9800;
 }
-
-/* 子供の年齢フィールドのスタイル調整 */
-.child-age-select {
-    font-size: 0.8em; /* テキストサイズを小さく設定 */
-    padding: 8px; /* フィールドの内側の余白を調整（必要に応じて変更） */
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    width: 100%; /* 横幅を親コンテナに合わせる */
-    box-sizing: border-box;
-}
-
 
 /* 検索ボタンのデザイン */
 .search-button {
@@ -72,13 +95,12 @@ body, html {
     font-weight: bold;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%; /* ボタンも親コンテナの幅に合わせて100%に */
-    box-sizing: border-box; /* パディングを含めて幅を計算するために設定 */
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .search-button:hover {
     background-color: #e68900;
+    transform: scale(1.05);
 }
 
 /* コンテンツ部分のデザイン */
@@ -95,31 +117,23 @@ body, html {
     color: white;
     text-decoration: none;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .post-link:hover {
     background-color: #45a049;
+    transform: scale(1.05);
 }
 
-/* スマホ用の調整 */
-@media (max-width: 768px) {
+/* スマホ対応のメディアクエリ */
+@media (max-width: 600px) {
+    .hero-title {
+        font-size: 1.8em; /* タイトルを小さく */
+    }
+    .hero-description {
+        font-size: 1.2em; /* 説明文を小さく */
+    }
     .search-container {
-        width: 95%;  /* スマホ画面ではフォーム全体の幅を少し広く */
-        padding: 15px; /* パディングを減らしてスマホでのバランスを改善 */
-    }
-    .search-input {
-        font-size: 0.9em;  /* スマホでのフォントサイズを少し小さく */
-    }
-    .search-input::placeholder {
-        font-size: 0.8em;  /* スマホ向けにプレースホルダーをさらに小さく */
-    }
-    .search-button {
-        font-size: 0.9em;  /* 検索ボタンの文字をスマホ向けに少し小さく */
-        padding: 8px 15px; /* スマホでのボタンサイズを少し減らす */
-        margin-top: 5px;  /* 検索ボタンの間隔を狭くする */
-    }
-    .search-row {
-        flex-direction: column;  /* スマホでは各行を縦に並べる */
+        width: 95%; /* 幅を広げてモバイル対応 */
     }
 }

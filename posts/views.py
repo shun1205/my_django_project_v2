@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import FacilityForm, RecipeForm, ParkForm, ReviewForm  # 各カテゴリに応じたフォームをインポート
 from .models import Facility
+from .models import CATEGORY_CHOICES
 
 def home(request):
     # クエリパラメータの取得
@@ -73,4 +74,7 @@ def create_review(request, facility_id):
 
 def select_category(request):
     # カテゴリ選択用のテンプレートを表示するビュー
-    return render(request, 'posts/select_category.html')
+    context = {
+        'categories': CATEGORY_CHOICES,  # カテゴリをテンプレートに渡す
+    }
+    return render(request, 'posts/select_category.html', context)

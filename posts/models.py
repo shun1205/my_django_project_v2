@@ -1,16 +1,18 @@
 from django.db import models
 
+CATEGORY_CHOICES = [
+    ('restaurant', '飲食店'),
+    ('recipe', 'レシピ'),
+    ('park', '公園'),
+    ('activity', 'アクティビティ'),
+    ('support', '地域の支援'),
+    ('education', '教育'),
+    ('school', '学校'),
+    ('experience', '経験談'),
+]
+
 class Facility(models.Model):
-    CATEGORY_CHOICES = [
-        ('restaurant', '飲食店'),
-        ('recipe', 'レシピ'),
-        ('park', '公園'),
-        ('activity', 'アクティビティ'),
-        ('support', '地域の支援'),
-        ('education', '教育'),
-        ('school', '学校'),
-        ('experience', '経験談'),
-    ]
+
     
     facility_name = models.CharField(max_length=100, verbose_name='施設名')
     address = models.CharField(max_length=255, verbose_name='住所')

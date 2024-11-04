@@ -1,3 +1,5 @@
+<!-- #home.html-->
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="ja">
@@ -6,59 +8,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
     <title>Family Info Sharing</title>
-    <style>
-        .hero {
-            position: relative;
-            height: 70vh; /* 全画面の70%の高さ */
-            background-image: url("/static/images/duck.jpg");
-            background-size: cover;
-            background-position: center;
-        }
-    </style>
 </head>
 <body>
     <!-- Heroセクション -->
     <div class="hero">
-        <div class="search-container">
-            <!-- 検索バーの1段目 -->
-            <div class="search-row">
-                <input type="text" name="area" class="search-input" placeholder="エリア (例: 東京, 横浜)" value="{{ request.GET.area }}">
-                <select name="category" class="search-input">
-                    <option value="">カテゴリを選択</option>
-                    <option value="レストラン" {% if request.GET.category == 'レストラン' %}selected{% endif %}>レストラン</option>
-                    <option value="公園" {% if request.GET.category == '公園' %}selected{% endif %}>公園</option>
-                    <option value="ショッピング" {% if request.GET.category == 'ショッピング' %}selected{% endif %}>ショッピング</option>
-                    <option value="その他" {% if request.GET.category == 'その他' %}selected{% endif %}>その他</option>
-                </select>
-                <select name="child_age" class="search-input child-age-select">
-                    <option value="">子供の年齢を選択</option>
-                    <option value="0-2歳">0-2歳</option>
-                    <option value="3-5歳">3-5歳</option>
-                    <option value="6-8歳">6-8歳</option>
-                    <option value="9歳以上">9歳以上</option>
-                </select>
-                
-            </div>
-            
-            <!-- 検索バーの2段目 -->
-            <div class="search-row">
-                <input type="text" name="keyword" class="search-input" placeholder="キーワード (例: おむつ替え)" value="{{ request.GET.keyword }}">
-            </div>
+        <div class="hero-content">
+            <h1 class="hero-title">Family Info Sharingへようこそ！</h1>
+            <p class="hero-description">このサイトは、子供がいる家庭のための施設情報を共有するコミュニティです。</p>
+            <form method="get" action="{% url 'home' %}">
+                <div class="search-container">
+                    <!-- 検索バーの1段目 -->
+                    <div class="search-row">
+                        <input type="text" name="area" class="search-input" placeholder="エリア (例: 東京, 横浜)" value="{{ request.GET.area }}">
+                        <select name="category" class="search-input">
+                            <option value="">カテゴリを選択</option>
+                            {% for value, label in categories %}
+                                <option value="{{ value }}" {% if request.GET.category == value %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="child_age" class="search-input child-age-select">
+                            <option value="">子供の年齢を選択</option>
+                            <option value="0-2歳">0-2歳</option>
+                            <option value="3-5歳">3-5歳</option>
+                            <option value="6-8歳">6-8歳</option>
+                            <option value="9歳以上">9歳以上</option>
+                        </select>
+                    </div>
     
-            <!-- 検索ボタンの3段目 -->
-            <div class="search-row" style="justify-content: center;">
-                <button type="submit" class="search-button">検索</button>
-            </div>
+                    <!-- 検索バーの2段目 -->
+                    <div class="search-row">
+                        <input type="text" name="keyword" class="search-input" placeholder="キーワード (例: おむつ替え)" value="{{ request.GET.keyword }}">
+                    </div>
+    
+                    <!-- 検索ボタンの3段目 -->
+                    <div class="search-row" style="justify-content: center;">
+                        <button type="submit" class="search-button">検索</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-           
-      
+
     <!-- コンテンツ部分 -->
     <div class="content">
-        <h1>Family Info Sharingへようこそ！</h1>
-        <p>このサイトは、子供がいる家庭のための施設情報を共有するコミュニティです。</p>
         <a href="{% url 'select_category' %}" class="post-link">投稿する</a>
-
     </div>
 </body>
 </html>

@@ -12,15 +12,10 @@
 
     <h1>カテゴリを選択してください</h1>
     <ul>
-        <li><a href="{% url 'create_facility' %}?category=restaurant">飲食店</a></li>
-        <li><a href="{% url 'create_facility' %}?category=recipe">レシピ</a></li>
-        <li><a href="{% url 'create_facility' %}?category=park">公園</a></li>
-        <li><a href="{% url 'create_facility' %}?category=activity">アクティビティ</a></li>
-        <li><a href="{% url 'create_facility' %}?category=support">地域の支援</a></li>
-        <li><a href="{% url 'create_facility' %}?category=education">教育</a></li>
-        <li><a href="{% url 'create_facility' %}?category=school">学校</a></li>
-        <li><a href="{% url 'create_facility' %}?category=experience">経験談</a></li>
-    </ul>
+        {% for value, label in categories %}
+            <li><a href="{% url 'create_facility' %}?category={{ value }}">{{ label }}</a></li>
+        {% endfor %}
+    </ul> 
 
 
 </body>
